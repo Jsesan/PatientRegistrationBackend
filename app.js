@@ -1,20 +1,19 @@
 const express = require("express");
+const cors = require("cors");
 
 const app = express();
 const port = process.env.PORT || 8080;
 
-const db = require("./util/database");
+app.use(cors({ origin: "*" }));
 
-db.execute("SELECT * FROM patients")
-  .then((res) => {
-    console.log({ res });
-  })
-  .catch((error) => {
-    console.log({ error });
-  });
+app.use(express.json());
+
+const patientRoutes = require("./routes/patient");
+
+app.use(patientRoutes);
 
 app.get("/", (req, res) => {
-  res.json({ message: "Patient Registration" });
+  res.json({ message: "Patient Registration Screen" });
 });
 
 app.listen(port, () =>

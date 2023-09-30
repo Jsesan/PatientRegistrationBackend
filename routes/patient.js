@@ -2,7 +2,10 @@ const express = require("express");
 
 const router = express.Router();
 
-router.post("/add-product", (req, res, next) => {
-  console.log(req.body);
-  res.redirect("/");
-});
+const patientsController = require("../controllers/patient");
+
+router.post("/patient", patientsController.createPatient);
+
+router.get("/patient", patientsController.getAllPatients);
+
+module.exports = router;
